@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>赤尾红科技 — 找到你的灵魂之选</title>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & FONTS
+   ═══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --red:#D4213D; --red-bright:#E83952; --red-deep:#9B1028; --red-glow:rgba(212,33,61,0.3);
+  --gold:#C9A96E; --gold-light:#DFC896; --gold-glow:rgba(201,169,110,0.2);
+  --bg:#0D0D0D; --bg-elevated:#161616; --bg-card:#1C1C1E;
+  --text:#F2F2F2; --text-muted:#999; --text-dim:#666;
+  --radius-xl:24px; --radius-lg:18px; --radius-md:12px; --radius-sm:8px;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-out-back:cubic-bezier(0.34,1.56,0.64,1);
+  --ease-spring:cubic-bezier(0.22,1.2,0.36,1);
+}
+
+html{font-size:16px;scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:'Noto Sans SC',-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:20px 16px 60px;line-height:1.65;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+  overflow-x:hidden;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATED BACKGROUND
+   ═══════════════════════════════════════════ */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,33,61,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 80%,rgba(201,169,110,0.04) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 20%,rgba(212,33,61,0.03) 0%,transparent 50%);
+}
+.bg-orb{
+  position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(80px);opacity:0.5;
+}
+.bg-orb.orb-1{width:320px;height:320px;background:rgba(212,33,61,0.07);top:-80px;left:-60px;animation:orb-float 12s ease-in-out infinite}
+.bg-orb.orb-2{width:240px;height:240px;background:rgba(201,169,110,0.05);bottom:-40px;right:-40px;animation:orb-float 15s ease-in-out infinite reverse}
+@keyframes orb-float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.1)}66%{transform:translate(-20px,15px) scale(0.9)}}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container{width:100%;max-width:520px;position:relative;z-index:1;padding:10px 0 40px}
+
+/* ═══════════════════════════════════════════
+   WELCOME SCREEN
+   ═══════════════════════════════════════════ */
+.welcome{text-align:center;padding-top:clamp(40px,10vh,80px)}
+.welcome .logo-wrap{position:relative;display:inline-block;margin-bottom:32px}
+.welcome .logo-ring{
+  width:100px;height:100px;position:relative;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
+}
+.welcome .logo-ring::before{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--red),var(--gold),var(--red));
+  animation:logo-spin 3s linear infinite;
+}
+.welcome .logo-ring::after{
+  content:'';position:absolute;inset:3px;border-radius:50%;background:var(--bg);
+}
+.welcome .logo-inner{
+  position:relative;z-index:1;width:82px;height:82px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red-deep),var(--red),var(--red-bright));
+  display:flex;align-items:center;justify-content:center;
+  font-size:38px;font-weight:900;color:#fff;letter-spacing:2px;
+  box-shadow:0 0 60px var(--red-glow),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+@keyframes logo-spin{to{transform:rotate(360deg)}}
+.welcome .logo-dot{
+  position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);
+  box-shadow:0 0 8px var(--gold-glow);
+  animation:dot-pulse 2s ease-in-out infinite;
+}
+.welcome .logo-dot:nth-child(2){top:10px;right:18px;animation-delay:0s}
+.welcome .logo-dot:nth-child(3){bottom:14px;left:10px;animation-delay:0.7s}
+.welcome .logo-dot:nth-child(4){top:20px;left:14px;animation-delay:1.4s}
+@keyframes dot-pulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.4)}}
+
+.welcome h1{
+  font-size:clamp(1.6rem,4vw,2.1rem);font-weight:900;letter-spacing:3px;line-height:1.3;
+  background:linear-gradient(135deg,var(--red-bright) 0%,var(--red) 40%,var(--gold-light) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:16px;
+  animation:fadeInUp 0.8s var(--ease-out-expo) forwards;
+}
+.welcome .tagline{
+  font-size:0.85rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:28px;opacity:0;
+  animation:fadeInUp 0.8s 0.15s var(--ease-out-expo) forwards;
+}
+.welcome .subtitle{
+  font-size:0.95rem;color:var(--text-muted);line-height:1.8;margin-bottom:8px;
+  opacity:0;animation:fadeInUp 0.8s 0.25s var(--ease-out-expo) forwards;
+}
+.welcome .subtitle em{color:var(--gold);font-style:normal;font-weight:500}
+
+.btn-start{
+  position:relative;display:inline-flex;align-items:center;gap:10px;
+  margin-top:40px;padding:17px 52px;
+  font-family:inherit;font-size:1.05rem;font-weight:700;letter-spacing:2px;
+  color:#fff;background:linear-gradient(135deg,var(--red),var(--red-deep));
+  border:none;border-radius:60px;cursor:pointer;
+  box-shadow:0 8px 32px var(--red-glow),0 2px 8px rgba(0,0,0,0.3);
+  transition:all 0.4s var(--ease-out-expo);
+  opacity:0;animation:fadeInUp 0.8s 0.4s var(--ease-out-expo) forwards;
+  overflow:hidden;
+}
+.btn-start::after{
+  content:'';position:absolute;inset:0;border-radius:60px;
+  background:linear-gradient(135deg,transparent,rgba(255,255,255,0.1),transparent);
+  transform:translateX(-100%);transition:transform 0.6s ease;
+}
+.btn-start:hover::after{transform:translateX(100%)}
+.btn-start:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(212,33,61,0.45),0 4px 12px rgba(0,0,0,0.4)}
+.btn-start:active{transform:scale(0.95);transition:transform 0.15s ease}
+.btn-start .arrow{display:inline-block;transition:transform 0.3s var(--ease-out-expo)}
+.btn-start:hover .arrow{transform:translateX(4px)}
+
+/* ═══════════════════════════════════════════
+   QUIZ AREA
+   ═══════════════════════════════════════════ */
+.quiz-area{display:none}
+.quiz-area.active{display:block;animation:fadeInUp 0.5s var(--ease-out-expo) forwards}
+
+/* ── Progress ── */
+.progress-wrap{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.progress-track{flex:1;height:3px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red-bright),var(--gold-light));border-radius:10px;transition:width 0.5s var(--ease-out-expo);position:relative}
+.progress-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 10px var(--gold-glow)}
+.progress-num{font-size:0.8rem;font-weight:600;color:var(--text-muted);white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:1px;min-width:42px;text-align:right}
+.progress-icon{font-size:1rem;animation:spin-slow 10s linear infinite;opacity:0.6}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+
+/* ── Question Card ── */
+.question-card{
+  background:var(--bg-card);border-radius:var(--radius-xl);
+  padding:clamp(28px,5vw,40px) clamp(22px,4vw,32px);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 4px 24px rgba(0,0,0,0.3),0 1px 0 rgba(255,255,255,0.03) inset;
+  position:relative;overflow:hidden;
+}
+.question-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+}
+.question-number{
+  font-size:0.72rem;font-weight:700;letter-spacing:3px;color:var(--text-dim);
+  text-align:center;margin-bottom:20px;text-transform:uppercase;
+}
+.question-text{
+  font-size:clamp(1.08rem,2.5vw,1.22rem);font-weight:600;line-height:1.75;
+  text-align:center;margin-bottom:32px;color:var(--text);
+}
+
+.options{display:flex;flex-direction:column;gap:12px}
+.option-btn{
+  position:relative;display:flex;align-items:center;width:100%;padding:17px 20px;
+  font-family:inherit;font-size:0.95rem;text-align:left;color:var(--text);
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--radius-md);cursor:pointer;
+  transition:all 0.3s var(--ease-out-expo);overflow:hidden;
+}
+.option-btn::before{
+  content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--red),var(--red-deep));
+  opacity:0;transition:opacity 0.3s ease;z-index:0;
+}
+.option-btn:hover{border-color:rgba(212,33,61,0.5);transform:translateX(4px);background:rgba(255,255,255,0.05)}
+.option-btn:active{transform:scale(0.98);transition:transform 0.12s ease}
+.option-btn.selected{border-color:var(--red);background:rgba(212,33,61,0.12)}
+.option-btn.selected::before{opacity:0.08}
+.option-btn .opt-letter{
+  position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:50%;font-size:0.78rem;font-weight:700;
+  background:rgba(255,255,255,0.06);color:var(--text-muted);
+  margin-right:14px;flex-shrink:0;transition:all 0.3s ease;
+}
+.option-btn.selected .opt-letter{background:var(--red);color:#fff;box-shadow:0 0 12px var(--red-glow)}
+.option-btn .opt-text{position:relative;z-index:1;flex:1}
+
+/* ── Ripple ── */
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.15);transform:scale(0);animation:ripple-effect 0.6s ease-out forwards;pointer-events:none}
+@keyframes ripple-effect{to{transform:scale(4);opacity:0}}
+
+/* ═══════════════════════════════════════════
+   RESULT AREA
+   ═══════════════════════════════════════════ */
+.result-area{display:none}
+.result-area.active{display:block;animation:fadeInUp 0.7s var(--ease-out-expo) forwards}
+
+.result-header{text-align:center;margin-bottom:36px;padding-top:20px}
+.result-header .crown{font-size:2rem;display:block;margin-bottom:12px;animation:bounce-in 0.6s 0.2s var(--ease-out-back) both}
+@keyframes bounce-in{0%{opacity:0;transform:scale(0.3)}50%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+.result-header h2{
+  font-size:clamp(1.5rem,3.5vw,1.85rem);font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--red-bright),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:16px;animation:fadeInUp 0.6s 0.35s var(--ease-out-expo) both;
+}
+.side-text{
+  font-size:0.92rem;color:var(--text-muted);line-height:1.85;
+  max-width:400px;margin:0 auto;animation:fadeInUp 0.6s 0.45s var(--ease-out-expo) both;
+}
+
+/* ── Product Cards ── */
+.product-card{
+  background:var(--bg-card);border-radius:var(--radius-xl);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 4px 24px rgba(0,0,0,0.3);
+  margin-bottom:20px;overflow:hidden;
+  animation:fadeInUp 0.6s var(--ease-out-expo) both;
+}
+.product-card.primary{border-color:rgba(212,33,61,0.25);animation-delay:0.5s}
+.product-card.secondary{border-color:rgba(201,169,110,0.15);animation-delay:0.65s}
+
+.card-badge{
+  display:inline-block;padding:6px 16px;font-size:0.72rem;font-weight:700;
+  border-radius:20px;letter-spacing:2px;margin:20px 0 0 20px;
+}
+.primary-badge{background:linear-gradient(135deg,var(--red),var(--red-deep));color:#fff;box-shadow:0 2px 12px var(--red-glow)}
+.secondary-badge{background:transparent;color:var(--gold);border:1px solid rgba(201,169,110,0.3)}
+
+.product-img-wrap{
+  position:relative;width:100%;height:240px;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(212,33,61,0.06) 0%,transparent 70%);
+  overflow:hidden;
+}
+.product-img-wrap::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
+  background:linear-gradient(transparent,var(--bg-card));
+}
+.product-img-wrap img{
+  max-width:70%;max-height:80%;object-fit:contain;
+  transition:transform 0.5s var(--ease-out-expo);
+  position:relative;z-index:1;
+}
+.product-img-wrap img:hover{transform:scale(1.06)}
+.img-placeholder{
+  width:130px;height:180px;border-radius:var(--radius-md);
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.05));
+  border:1px dashed rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-dim);font-size:0.85rem;
+}
+
+.product-info{padding:16px 24px 28px;position:relative}
+.product-info h3{font-size:1.2rem;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.product-info .product-desc{font-size:0.85rem;color:var(--text-muted);margin-bottom:14px}
+.product-info .product-reason{
+  font-size:0.9rem;color:#ccc;line-height:1.75;
+  padding:14px 18px;background:rgba(255,255,255,0.02);
+  border-radius:var(--radius-md);border-left:3px solid var(--red);
+}
+.secondary .product-reason{border-left-color:var(--gold)}
+
+/* ── Actions ── */
+.result-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.result-actions button{
+  flex:1;min-width:140px;padding:15px 20px;
+  font-family:inherit;font-size:0.92rem;font-weight:600;border-radius:60px;
+  cursor:pointer;transition:all 0.35s var(--ease-out-expo);letter-spacing:1px;
+}
+.btn-retry{
+  background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,0.15);
+}
+.btn-retry:hover{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.04);transform:translateY(-2px)}
+.btn-retry:active{transform:scale(0.96)}
+.btn-share{
+  background:linear-gradient(135deg,var(--red),var(--red-deep));color:#fff;border:none;
+  box-shadow:0 4px 20px var(--red-glow);
+}
+.btn-share:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,33,61,0.45)}
+.btn-share:active{transform:scale(0.96)}
+
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(120px);
+  background:rgba(44,44,46,0.95);color:#fff;padding:14px 30px;border-radius:60px;
+  font-size:0.88rem;font-weight:500;z-index:999;opacity:0;
+  transition:all 0.4s var(--ease-spring);pointer-events:none;white-space:nowrap;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.1);letter-spacing:0.5px;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.footer-note{text-align:center;margin-top:36px;font-size:0.75rem;color:var(--text-dim);letter-spacing:1px}
+.footer-note span{color:var(--red);font-weight:600}
+
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════ */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ═══════════════════════════════════════════
+   CONFETTI
+   ═══════════════════════════════════════════ */
+.confetti-piece{
+  position:fixed;pointer-events:none;z-index:100;
+  animation:confetti-fall var(--fall-dur) linear forwards;
+}
+@keyframes confetti-fall{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:1}
+  100%{transform:translateY(105vh) rotate(var(--spin));opacity:0}
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media(max-width:480px){
+  html{font-size:15px}
+  body{padding:12px 12px 40px}
+  .welcome .logo-ring{width:84px;height:84px}
+  .welcome .logo-inner{width:68px;height:68px;font-size:32px}
+  .welcome h1{letter-spacing:1.5px}
+  .question-card{padding:24px 16px}
+  .option-btn{padding:15px 16px;font-size:0.9rem}
+  .option-btn .opt-letter{width:26px;height:26px;font-size:0.7rem;margin-right:10px}
+  .product-img-wrap{height:190px}
+  .product-info{padding:12px 18px 22px}
+  .result-actions{flex-direction:column}
+  .result-actions button{width:100%}
+  .btn-start{padding:15px 40px;font-size:0.98rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Animated background orbs -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="particles" id="particles"></div>
+
+<div class="container">
+
+  <!-- ═══════ WELCOME ═══════ -->
+  <section class="welcome" id="welcome">
+    <div class="logo-wrap">
+      <div class="logo-ring">
+        <div class="logo-dot"></div>
+        <div class="logo-dot"></div>
+        <div class="logo-dot"></div>
+        <div class="logo-inner">赤</div>
+      </div>
+    </div>
+    <p class="tagline">CHIWEI RED TECH</p>
+    <h1>赤尾红科技<br>让爱在探索中增进</h1>
+    <p class="subtitle">40 个内心选择，找到专属于你的那一款<br><em>科技让爱更贴近</em></p>
+    <button class="btn-start" onclick="startQuiz()">开启探索<span class="arrow">→</span></button>
+  </section>
+
+  <!-- ═══════ QUIZ ═══════ -->
+  <section class="quiz-area" id="quizArea">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:2.5%"></div></div>
+      <span class="progress-num" id="progressNum">1/40</span>
+      <span class="progress-icon" id="progressIcon">✦</span>
+    </div>
+    <div class="question-card" id="questionCard">
+      <div class="question-number">QUESTION <span id="qIndex">1</span></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsWrap"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ RESULT ═══════ -->
+  <section class="result-area" id="resultArea">
+    <div class="result-header">
+      <span class="crown">⚬</span>
+      <h2>你的赤尾灵魂之选</h2>
+      <p class="side-text" id="sideText"></p>
+    </div>
+    <div id="primaryCard"></div>
+    <div id="secondaryCard"></div>
+    <div class="result-actions">
+      <button class="btn-retry" onclick="restartQuiz()">再测一次</button>
+      <button class="btn-share" onclick="shareResult()">分享我的灵魂搭档</button>
+    </div>
+    <p class="footer-note">赤尾 <span>红科技</span> · 中国智造 · 科技让爱更贴近</p>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  PRODUCT DATA
+// ═══════════════════════════════════════════════════════════
+const productMap = {
+  "BCEG":{id:1,name:"延时，温和持久",desc:"温和持久与极薄并存",oppositeId:6,reason:"你需要的是从容掌控的亲密节奏，它温和降敏却不牺牲薄度，让每一次都稳定又细腻。",side:"你重视承诺与秩序，用持久不变的耐心搭建安稳的亲密世界。"},
+  "BCFG":{id:2,name:"超薄003水润玻尿酸",desc:"003超薄，水润玻尿酸",oppositeId:9,reason:"体贴如你，总在意对方的感受。003超薄与水润玻尿酸，把温柔写进每一个细节。",side:"温柔细腻是你的底色，总能在细微处给予对方最妥帖的关怀。"},
+  "BDEG":{id:3,name:"000无感，无储精囊，玻尿酸",desc:"000无感，无储精囊设计",oppositeId:16,reason:"极简纯粹是你的底色，看似不存在的阻隔，只为让真实连接毫无保留。",side:"极简纯粹，追求本质。你不喜浮华，只信最真实的连接。"},
+  "ADEG":{id:4,name:"000至尊无感，包装更华丽",desc:"包装更华丽，至尊无感体验",oppositeId:12,reason:"你追求极致体验，又讲究格调。至尊无感配以华丽包装，满足你的掌控与品味。",side:"你天生领袖，追求极致与格调，在掌控中抵达完美的彼岸。"},
+  "ADFG":{id:5,name:"003，专为女性设计，四重玻尿酸",desc:"四重玻尿酸，专为女性",oppositeId:10,reason:"共情与呵护是你最大的魅力，四重玻尿酸专为她而生，让爱意湿润每一刻。",side:"共情力是你的超能力，你懂得呵护每一寸柔软，让爱意自然流淌。"},
+  "ADFH":{id:6,name:"玻尿酸三合一，一盒三款",desc:"一盒三款，百变体验",oppositeId:1,reason:"你不拘一格，乐于尝新。一盒三款，随时变换，满足你百变的好奇心。",side:"你不拘一格，灵魂里住着冒险家，新鲜的体验是你最好的燃料。"},
+  "BDEH":{id:7,name:"001聚氨酯，赤尾旗下最薄",desc:"聚氨酯材质，赤尾最薄",oppositeId:15,reason:"理性至上的科技派，赤尾最薄的聚氨酯材质，是你数据控的终极答案。",side:"理性是你的罗盘，用逻辑解构世界，在数据中寻找终极答案。"},
+  "ACEH":{id:8,name:"潮感螺纹套，情趣刺激",desc:"螺纹刺激，潮感体验",oppositeId:14,reason:"你天生感官敏锐，追求刺激。螺纹带来的潮感，让每次探索都充满火花。",side:"感官敏锐，活在当下。刺激与激情是你与世界对话的方式。"},
+  "ADEH":{id:9,name:"超薄加大套，更大尺寸",desc:"更大尺寸，超薄设计",oppositeId:2,reason:"你的自信无需隐藏，加大尺寸与超薄结合，给你自在驰骋的空间。",side:"自信从容，大胆开拓。你不惧展示真实的自己，空间由你定义。"},
+  "BCEH":{id:10,name:"赤尾旗下最延时，临床试验降敏",desc:"临床降敏，最延时款",oppositeId:5,reason:"沉着掌控，不急于一时。临床降敏让持久被重新定义，你用节奏征服一切。",side:"沉着冷静，步步为营。你懂得节奏的奥义，不疾不徐方能致远。"},
+  "BDFH":{id:11,name:"加戏面具套，超薄玻尿酸，久滑不干",desc:"超薄玻尿酸，久滑不干",oppositeId:13,reason:"你心里住着一个浪漫幻想家，超薄玻尿酸久滑不干，给加戏最完美的舞台。",side:"你心里住着一个浪漫梦想家，用想象力为平凡日常镀上温柔光芒。"},
+  "BCFH":{id:12,name:"水感啵啵，超高含量玻尿酸",desc:"超高玻尿酸，首款专为女性研发",oppositeId:4,reason:"你温柔细腻，懂得如何去爱。超高玻尿酸含量，专为女性研发，让水润成为最深的情话。",side:"温柔而坚定，你用细腻的感知力为爱人营造独一无二的柔软宇宙。"},
+  "ACEG":{id:13,name:"小号装，动感紧致",desc:"动感紧致，小号设计",oppositeId:11,reason:"精准与效率是你的代名词，动感紧致，恰如其分的贴合，才能执行最完美的计划。",side:"精准高效是你的代名词，凡事有计划、有执行，从不偏离航线。"},
+  "BDFG":{id:14,name:"USB内侧结构性黏合技术，防滑脱",desc:"内侧结构性黏合，防滑脱",oppositeId:8,reason:"你从不按常理出牌，独特内侧黏合技术，防滑脱的创新设计，刚好配你的机智。",side:"你独具慧眼，不走寻常路。巧思与深度是你最迷人的特质。"},
+  "ACFG":{id:15,name:"夏日冰感，冰爽超薄",desc:"冰爽超薄，夏日首选",oppositeId:7,reason:"细心关怀是你最大的性感。冰爽超薄，在炎炎夏日里给你最贴心的清凉呵护。",side:"细心周全，润物无声。你总在他人想到之前，已默默安排好一切。"},
+  "ACFH":{id:16,name:"赤尾大颗粒，颗粒款",desc:"大颗粒刺激，多样快感",oppositeId:3,reason:"你深谙快感的层次，颗粒设计带来更丰富的刺激，为探索欲而生的越界体验。",side:"你深谙快乐的层次，是天生的探索者，每一次都力求超越上一次。"}
+};
+
+// ═══════════════════════════════════════════════════════════
+//  QUESTIONS — 40 total, 10 per hidden dimension
+//  dim 0: A/B (E/I), dim 1: C/D (S/N)
+//  dim 2: E/F (T/F), dim 3: G/H (J/P)
+// ═══════════════════════════════════════════════════════════
+const questions = [
+  {q:"进入一段亲密关系时，你通常会：",a:"主动出击，带动节奏",b:"耐心等待，跟随感觉",dim:0},
+  {q:"对于新出的生活好物，你的态度是：",a:"第一时间想尝试",b:"更倾向选择熟悉的经典款",dim:0},
+  {q:"你更偏爱的约会模式是：",a:"去人群沸腾的音乐节或派对",b:"在私人空间享受二人世界",dim:0},
+  {q:"在亲密互动中，你更喜欢：",a:"用言语和动作主导氛围",b:"感受对方传递的细微暗示",dim:0},
+  {q:"朋友眼中的你更接近：",a:"聚会上总能带来能量",b:"安静，但观察入微",dim:0},
+  {q:"看到一款吸引人的广告，你会：",a:"被潮流带动，立刻了解",b:"先理性分析是否适合自己",dim:0},
+  {q:"面对陌生社交环境：",a:"很快打成一片",b:"先观察再慢慢适应",dim:0},
+  {q:"与伴侣沟通需求时：",a:"直接说出真实想法",b:"借由气氛和肢体间接表达",dim:0},
+  {q:"周末最让你回血的事是：",a:"约一群好友出去嗨",b:"与最亲密的人独处放松",dim:0},
+  {q:"提出新玩法的人往往是：",a:"你",b:"对方",dim:0},
+  {q:"关于身体的触感，你更在意：",a:"真实、强烈的物理刺激",b:"脑海中构建的情绪与幻想",dim:1},
+  {q:"挑选润滑或保护产品时，你先看：",a:"材质、薄度数据等实际参数",b:"它的整体设计理念与氛围感",dim:1},
+  {q:"描述一次极致的体验，你会说：",a:"温度、包裹感恰到好处",b:"仿佛灵魂短暂交融",dim:1},
+  {q:"好的前戏更重要的是：",a:"充满感官细节的触碰",b:"充满角色扮演或场景想象",dim:1},
+  {q:"哪种描述更打动你：",a:"触感如真实肌肤",b:"突破想象的体验",dim:1},
+  {q:"看产品说明书时，你关注：",a:"实际功能与参数",b:"概念创新与设计思路",dim:1},
+  {q:"回忆亲密瞬间，你最先记起：",a:"身体的直接感受",b:"当时的心情与故事",dim:1},
+  {q:"布置卧室氛围，你倾向于：",a:"调节灯光、温度、床品质感",b:"设计一个惊喜主题或剧情",dim:1},
+  {q:"对于「薄」的追求，你认为：",a:"数值上的极致更安心",b:"薄是为了解放想象力",dim:1},
+  {q:"更让你兴奋的场景是：",a:"对方穿上你喜欢的触感睡衣",b:"对方突然扮演一个全新角色",dim:1},
+  {q:"购买亲密产品时，你做决定主要看：",a:"功能、成分、技术指标",b:"当下的心情和感性吸引力",dim:2},
+  {q:"伴侣对某款产品有点抗拒，你会：",a:"理性分析原因，共同解决",b:"先安抚情绪，照顾感受",dim:2},
+  {q:"一场完美的亲密关系最重要的是：",a:"身体上的同步满足",b:"情感上的深度连结",dim:2},
+  {q:"对「持久」类产品，你的看法是：",a:"有效的功能设计，我信赖临床数据",b:"能让两人更无忧地投入情绪",dim:2},
+  {q:"对方提出一个你从没想过的点子：",a:"你先评估可能性和舒适度",b:"只要对方开心就纵情一试",dim:2},
+  {q:"亲密时出现小意外（如滑落），你的反应：",a:"立刻处理，同时思索原因",b:"笑着安抚，不想破坏气氛",dim:2},
+  {q:"你更偏好：",a:"规律、有质量的亲密生活",b:"充满惊喜和浪漫的互动",dim:2},
+  {q:"送伴侣礼物，你会选：",a:"他/她最近理性提及需要的东西",b:"一看就能让他/她感动的惊喜",dim:2},
+  {q:"日常对话中，你更常：",a:"直接指出问题，寻求解决",b:"先表达理解和共情",dim:2},
+  {q:"对于「水润」的体验，你更在意：",a:"玻尿酸含量、润滑时长等数据",b:"它带给你的丝滑温柔包裹感",dim:2},
+  {q:"计划一个浪漫夜晚，你通常：",a:"提前做好详细安排",b:"只定个大方向，临场发挥",dim:3},
+  {q:"日常生活中，你更像：",a:"喜欢列表、计划，按步骤来",b:"随性，计划赶不上变化",dim:3},
+  {q:"假期旅行的理想模式是：",a:"行程满满，高效打卡",b:"睡到自然醒，随遇而安",dim:3},
+  {q:"关于亲密准备，你：",a:"习惯提前备好，规律使用",b:"看当时状态顺其自然",dim:3},
+  {q:"如果对方突然想要但你没准备：",a:"你觉得应该提前备好，有点扫兴",b:"觉得没关系，可以随机应变玩别的",dim:3},
+  {q:"面对重要截止日期，你通常：",a:"早早就从容完成",b:"最后一刻灵感迸发",dim:3},
+  {q:"使用新产品时，你：",a:"倾向于按说明标准化使用",b:"会按当时气氛自由发挥",dim:3},
+  {q:"你的私人空间是：",a:"整洁有序，物归其位",b:"创造性混乱，但你能找到一切",dim:3},
+  {q:"一旦做出决定，你：",a:"很少改变，坚定执行",b:"经常随着新信息调整方向",dim:3},
+  {q:"对于「偶尔换个花样」的看法：",a:"纳入计划才会有安全感",b:"突如其来的新鲜感才刺激",dim:3}
+];
+
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+const scores = [0,0,0,0,0,0,0,0];
+let currentQ = 0;
+const TOTAL = questions.length;
+const imageBase = "16个产品/";
+const imgExt = id => id === 16 ? ".PNG" : ".JPG";
+
+// ═══════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════
+const $ = id => document.getElementById(id);
+
+function showToast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function addRipple(e, btn){
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  btn.appendChild(ripple);
+  ripple.addEventListener('animationend', () => ripple.remove());
+}
+
+// ═══════════════════════════════════════
+//  CONFETTI
+// ═══════════════════════════════════════
+function spawnConfetti(){
+  const colors = ['#D4213D','#E83952','#C9A96E','#DFC896','#fff','#ff6b81','#ffd700'];
+  const container = $('particles');
+  for(let i = 0; i < 60; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const c = colors[Math.floor(Math.random() * colors.length)];
+    const w = 6 + Math.random() * 8;
+    const h = w * (0.4 + Math.random() * 1.6);
+    piece.style.cssText = `
+      left:${Math.random()*100}%;top:-5%;
+      width:${w}px;height:${h}px;background:${c};border-radius:${Math.random()>0.5?'50%':'2px'};
+      --fall-dur:${2+Math.random()*3}s;--spin:${(Math.random()-0.5)*720}deg;
+      animation-delay:${Math.random()*1.5}s;
+    `;
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+// ═══════════════════════════════════════
+//  QUIZ FLOW
+// ═══════════════════════════════════════
+function startQuiz(){
+  for(let i=0;i<8;i++)scores[i]=0;
+  currentQ=0;
+  $('welcome').style.display='none';
+  $('resultArea').classList.remove('active');
+  $('resultArea').style.display='none';
+  $('quizArea').classList.add('active');
+  $('quizArea').style.display='block';
+  renderQuestion();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderQuestion(){
+  const qData = questions[currentQ];
+  $('questionText').textContent = qData.q;
+  $('qIndex').textContent = currentQ + 1;
+  $('progressNum').textContent = (currentQ+1)+'/'+TOTAL;
+  $('progressFill').style.width = ((currentQ+1)/TOTAL*100)+'%';
+  const icons = ['✦','◇','○','△','▽','☆','◈','⬡','◉','⊕'];
+  $('progressIcon').textContent = icons[currentQ % icons.length];
+
+  const wrap = $('optionsWrap');
+  wrap.innerHTML = '';
+  ['a','b'].forEach((opt,idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    const letter = document.createElement('span');
+    letter.className = 'opt-letter';
+    letter.textContent = opt.toUpperCase();
+    btn.appendChild(letter);
+    const text = document.createElement('span');
+    text.className = 'opt-text';
+    text.textContent = qData[opt];
+    btn.appendChild(text);
+    btn.addEventListener('click', e => {
+      addRipple(e, btn);
+      selectAnswer(idx, btn);
+    });
+    wrap.appendChild(btn);
+  });
+
+  const card = $('questionCard');
+  card.style.animation = 'none'; card.offsetHeight;
+  card.style.animation = 'fadeInUp 0.4s var(--ease-out-expo) forwards';
+}
+
+function selectAnswer(optIdx, btnEl){
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btnEl.classList.add('selected');
+
+  const dim = questions[currentQ].dim;
+  if(optIdx === 0) scores[dim*2] += 1;
+  else scores[dim*2+1] += 1;
+
+  setTimeout(() => {
+    currentQ++;
+    if(currentQ >= TOTAL){
+      showResult();
+    }else{
+      renderQuestion();
+      $('quizArea').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }, 350);
+}
+
+// ═══════════════════════════════════════
+//  RESULT
+// ═══════════════════════════════════════
+function computeResult(){
+  const c0 = scores[0] >= scores[1] ? 'A' : 'B';
+  const c1 = scores[2] >= scores[3] ? 'C' : 'D';
+  const c2 = scores[4] >= scores[5] ? 'E' : 'F';
+  const c3 = scores[6] >= scores[7] ? 'G' : 'H';
+  return productMap[c0+c1+c2+c3];
+}
+
+function showResult(){
+  $('quizArea').classList.remove('active');
+  $('quizArea').style.display='none';
+  $('resultArea').classList.add('active');
+  $('resultArea').style.display='block';
+
+  const primary = computeResult();
+  const secondary = productMap[Object.keys(productMap).find(k => productMap[k].id === primary.oppositeId)];
+
+  $('sideText').textContent = primary.side;
+  $('primaryCard').innerHTML = buildProductCard(primary, 'primary', '最适合你的赤尾款式');
+  $('secondaryCard').innerHTML = buildProductCard(secondary, 'secondary', '偶尔一试');
+
+  window.scrollTo({top:0,behavior:'smooth'});
+  spawnConfetti();
+}
+
+function buildProductCard(product, type, badgeText){
+  const badgeClass = type === 'primary' ? 'primary-badge' : 'secondary-badge';
+  const reason = type === 'secondary'
+    ? '翻转你的性格脚本，也许你会发现全新的愉悦维度。'
+    : product.reason;
+  const imgSrc = imageBase + product.id + imgExt(product.id);
+  const imgHtml = `<img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="img-placeholder" style="display:none">产品 ${product.id}</div>`;
+  return `<div class="product-card ${type}"><span class="card-badge ${badgeClass}">${badgeText}</span><div class="product-img-wrap">${imgHtml}</div><div class="product-info"><h3>${product.name}</h3><p class="product-desc">${product.desc}</p><p class="product-reason">${reason}</p></div></div>`;
+}
+
+// ═══════════════════════════════════════
+//  SHARE & RESTART
+// ═══════════════════════════════════════
+function restartQuiz(){
+  $('resultArea').classList.remove('active');
+  $('resultArea').style.display='none';
+  $('welcome').style.display='block';
+  for(let i=0;i<8;i++)scores[i]=0;
+  currentQ=0;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function shareResult(){
+  const primary = computeResult();
+  const shareText = `我在「赤尾红科技」性格测试中，找到了我的灵魂之选——${primary.name}。${primary.side} 来做你的专属测试：`;
+  if(navigator.share){
+    navigator.share({title:'赤尾红科技 · 灵魂之选',text:shareText}).catch(()=>{});
+  }else{
+    navigator.clipboard.writeText(shareText).then(()=>{
+      showToast('✓ 已复制分享文案到剪贴板');
+    }).catch(()=>{
+      showToast('分享文案：'+shareText);
+    });
+  }
+}
+</script>
+</body>
+</html>
