@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="赤尾红科技性格测试 — 40道内心选择，找到专属于你的赤尾款式。科技让爱更贴近。">
 <title>赤尾红科技 — 找到你的灵魂之选</title>
 <style>
 /* ═══════════════════════════════════════════
    RESET & FONTS
    ═══════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap');
+/* Google Fonts disabled for offline-first; system font stack used instead */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -127,6 +128,7 @@ body::before{
 .btn-start:hover::after{transform:translateX(100%)}
 .btn-start:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(212,33,61,0.45),0 4px 12px rgba(0,0,0,0.4)}
 .btn-start:active{transform:scale(0.95);transition:transform 0.15s ease}
+.btn-start:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .btn-start .arrow{display:inline-block;transition:transform 0.3s var(--ease-out-expo)}
 .btn-start:hover .arrow{transform:translateX(4px)}
 
@@ -180,6 +182,7 @@ body::before{
 }
 .option-btn:hover{border-color:rgba(212,33,61,0.5);transform:translateX(4px);background:rgba(255,255,255,0.05)}
 .option-btn:active{transform:scale(0.98);transition:transform 0.12s ease}
+.option-btn:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-color:var(--red)}
 .option-btn.selected{border-color:var(--red);background:rgba(212,33,61,0.12)}
 .option-btn.selected::before{opacity:0.08}
 .option-btn .opt-letter{
